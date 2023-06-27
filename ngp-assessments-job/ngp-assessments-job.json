@@ -1,0 +1,43 @@
+{
+  "name" : "ngp-assessments-job",
+  "description" : "",
+  "role" : "arn:aws:iam::788304962148:role/service-role/AWSGlueServiceRole",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-788304962148-eu-west-1/scripts/ngp-assessments-job.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--destination" : "ngp-assessment-data",
+    "--enable-glue-datacatalog" : "true",
+    "--source" : "experiment-bucket-assessio",
+    "--job-bookmark-option" : "job-bookmark-enable",
+    "--TempDir" : "s3://aws-glue-assets-788304962148-eu-west-1/temporary/",
+    "JOB_NAME" : "assessments-processing",
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-788304962148-eu-west-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-language" : "python",
+    "--enable-auto-scaling" : "true",
+    "--env" : "dev"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "iskander-sauma-assessio",
+    "branch" : "main",
+    "folder" : "ngp-assessments-job"
+  }
+}
